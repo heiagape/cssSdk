@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+</head>
+<body>
+    
+<button onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'rosegold'}))">Rose Gold</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'gold'}))">Gold</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'platinum'}))">Platinum</button>
+
+
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.35}))">0.35</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.55}))">0.55</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.75}))">0.75</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 1.0}))">1.0</button>
+
+<div id='myroot' style="width: 100%; height: 100%;"></div>
+<style>
+    html,body,#myroot{
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+
+<script type="module">
+
+    let baseURL = `https://css-sdk.mydear.live`
+    let sdkPath = `${baseURL}/sdk-build/vanilla.module.js?ar=${Math.random()}`
+
+    import(sdkPath).then((agape) =>{
+        //////////////
+        // SDK Code //
+        //////////////
+
+        let sdk = new agape.AgapeEngineSDKForCSS({
+            publicAccessToken: `emphasis-2023-11`,
+            domElement: document.querySelector('#myroot'),
+        })
+
+        sdk.loadRing({
+            seriesID: `94010R`,
+            fingerSize: 15,
+            diamondSize: 0.35,
+        })
+
+        sdk.setColorProfile({
+            type: 'rosegold',
+        })
+        
+        setTimeout(() => {
+            sdk.setColorProfile({
+                type: 'gold',
+            })
+        }, 2000)
+
+        setTimeout(() => {
+            sdk.setColorProfile({
+                type: 'platinum',
+            })
+        }, 3000)
+
+        // --------
+        //  Button
+        // --------
+
+        window.addEventListener('change-color', (e) => {
+            sdk.setColorProfile({
+                type: e.detail,
+            })
+        })
+
+        window.addEventListener('change-diamond-size', (e) => {
+            sdk.loadRing({
+            seriesID: `94010R`,
+            fingerSize: 15,
+            diamondSize: e.detail,
+        })
+
+        })
+    })
+
+
+</script>
+
+</body>
+</html>

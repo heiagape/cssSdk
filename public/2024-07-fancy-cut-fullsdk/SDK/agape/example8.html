@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+    <script src="./basic/jquery/jquery.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .ui-accordion-header {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px;
+            padding: 10px;
+            background-color: #b5b5b5;
+            color: black;
+        }
+
+        .ui-state-active {
+            color: black;
+            background-color: #47edff;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="./jquery/jquery-ui.min.css"> -->
+</head>
+
+<body class="engrave">
+    <!-- <div style="height: 60px;"></div> -->
+    <!-- <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.55}))">0.55</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.75}))">0.75</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 1.0}))">1.0</button> -->
+
+    <div class="layoutgui">
+        <div class="layoutgui-left">
+            <button class="button-general"
+                onclick="window.dispatchEvent(new CustomEvent('reset-focus', {detail: {el: this, msg: 'reset-focus'}}))">
+                Smooth Reset Camera
+            </button>
+            <button class="button-general"
+                onclick="window.dispatchEvent(new CustomEvent('reset-focus-instant', {detail: {el: this, msg: 'reset-focus-instant'}}))">
+                Instant Reset Camera
+            </button>
+
+            <button class="button-general"
+                onclick="window.dispatchEvent(new CustomEvent('preload-all', {detail: {el: this, msg: 'preload-all'}}))">
+                Preload All
+            </button>
+
+            <button class="button-general"
+                onclick="window.dispatchEvent(new CustomEvent('toggle-rotate', {detail: {el: this, msg: 'toggle-rotate'}}))">
+                Toggle Rotate
+            </button>
+
+            <button class="button-general"
+                onclick="window.dispatchEvent(new CustomEvent('take-picture', {detail: {el: this, msg: 'take-picture'}}))">
+                Take Picture
+            </button>
+
+            <button class="button-general"
+                onclick="window.dispatchEvent(new CustomEvent('toggle-devtools', {detail: {el: this, msg: 'toggle-devtools'}}))">
+                Toggle Developer Tools
+            </button>
+
+            <div class="separater"></div>
+
+            <div>
+                <!-- <button class="button-general" onclick="
+                    // window.dispatchEvent(new CustomEvent('change-viewMode', {detail: 'engrave'})); 
+                    window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 1.0 }}))
+                ">Engrave Mode</button>
+                <button class="button-general"
+                    onclick="
+                    window.dispatchEvent(new CustomEvent('change-viewMode', {detail: 'normal'}))
+                    ">View
+                    Mode</button> -->
+
+                <!-- <button class="button-general" onclick="
+                        window.dispatchEvent(new CustomEvent('toggle-viewMode', {detail: ''}))
+                    "> Switch Engrave Mode / View Mode</button> -->
+            </div>
+            <div class="only-show-when-engrave">
+                <!-- <div>
+                    <button class="button-general" onclick="
+                    window.dispatchEvent(new CustomEvent('change-camera', {detail: 'engrave'})); 
+                ">Zoom In (See Text)</button>
+                    <button class="button-general"
+                        onclick="
+                        window.dispatchEvent(new CustomEvent('change-camera', {detail: 'normal'}))
+                        ">
+                        Zoom Out (See all)</button>
+                </div> -->
+                <div>
+                    <input style="display: none;" maxLength="5" id="text1" type="text" onfocus="
+                    window.dispatchEvent(new CustomEvent('focus-text', {detail: {
+                    }}))
+                " onclick="
+                        window.dispatchEvent(new CustomEvent('focus-text', {detail: {
+                        }}))
+                    " value=""></input>
+
+                    <div id="display-text" class="hidden-input" contenteditable="true" onclick="
+                            window.dispatchEvent(new CustomEvent('focus-text', {detail: {
+                            }}))
+
+                        " onkeyup="
+                        window.dispatchEvent(new CustomEvent('display-text-keydown', {detail: { el: this }}))
+                    ">
+                    </div>
+                </div>
+
+                <div class=" row-symbols ">
+                    <div class="web-symbol" onclick="
+                     window.dispatchEvent(new CustomEvent('click-symbol', {detail: {
+                        content: `[`
+                        }}))
+                    ">
+                        <span class="inline-img">
+                            <img class="" src="./basic/engrave/promessa/heart_fill.png" />
+                        </span>
+                    </div>
+                    <div class="web-symbol" onclick="
+                    window.dispatchEvent(new CustomEvent('click-symbol', {detail: {
+                        content: `]`
+                        }}))
+                    ">
+                        <span class="inline-img">
+                            <img class="" src="./basic/engrave/promessa/heart_hollow.png" />
+                        </span>
+                    </div>
+
+                    <div class="web-symbol" onclick="
+                     window.dispatchEvent(new CustomEvent('click-symbol', {detail: {
+                        content: '&'
+                        }}))
+
+                    ">
+
+
+                        <span class="inline-img">
+                            <span class="">&</span>
+                        </span>
+                    </div>
+                    <div class="web-symbol" onclick="
+                     window.dispatchEvent(new CustomEvent('click-symbol', {detail: {
+                        content: '>'
+                        }}))
+
+                    ">
+                        <span class="inline-img">
+                            <img class="" src="./basic/engrave/promessa/promessa_heart.png" />
+                        </span>
+                    </div>
+                    <div class="web-symbol" onclick="
+                     window.dispatchEvent(new CustomEvent('click-symbol', {detail: {
+                        content: '<'
+                    }}))
+
+                    ">
+                        <span class="inline-img">
+                            <img class="" src="./basic/engrave/promessa/promessa_heart_border.png" />
+                        </span>
+                    </div>
+                </div>
+
+                <div>
+                    <input id="text2" type="text" class="input-general hidden-input" value="Mary" />
+                </div>
+
+                <div>
+                    <input id="text3" type="text" class="input-general hidden-input" value="2023" />
+                </div>
+
+                <button onclick="window.dispatchEvent(new CustomEvent('change-text', {detail: {
+                    text1: document.querySelector('#text1').value,
+                    text2: document.querySelector('#text2').value,
+                    text3: document.querySelector('#text3').value,
+                    font: document.querySelector('#font').value,
+                    logo: document.querySelector('#logo').value,
+                }}))" class="button-general sticky">
+                    Refresh Engrave
+                </button>
+
+                <div>
+                    <select onchange="window.dispatchEvent(new CustomEvent('change-text', {detail: {
+                text1: document.querySelector('#text1').value,
+                text2: document.querySelector('#text2').value,
+                text3: document.querySelector('#text3').value,
+                font: document.querySelector('#font').value,
+                logo: document.querySelector('#logo').value,
+            }}))" id="font" type="text" class="input-general" value="f2">
+                        <option value="f0" selected>Arial / 楷書</option>
+                        <option value="f1">Times New Roman / 楷書</option>
+                        <option value="f2">Edwardian Script / 楷書</option>
+                    </select>
+                </div>
+                <div>
+                    <select onchange="window.dispatchEvent(new CustomEvent('change-text', {detail: {
+                text1: document.querySelector('#text1').value,
+                text2: document.querySelector('#text2').value,
+                text3: document.querySelector('#text3').value,
+                font: document.querySelector('#font').value,
+                logo: document.querySelector('#logo').value,
+            }}))" id="logo" type="text" class="input-general hidden-input" value="l3">
+                        <option value="l0">Logo 0</option>
+                        <option value="l1">Logo 1</option>
+                        <option value="l2">Logo 2</option>
+                        <option value="l3" selected>Logo 3</option>
+                        <option value="l4">Logo 4</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <!-- <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 1}))">100% resolution</button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.9}))">90% resolution</button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.8}))">80% resolution</button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.7}))">70% resolution</button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.6}))">60% resolution</button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.5}))">50% resolution</button> -->
+                <!-- <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.4}))">40% resolution</button>
+            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.3}))">30% resolution</button>
+            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.2}))">20% resolution</button>
+            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.1}))">10% resolution</button> -->
+            </div>
+
+            <div class="separater"></div>
+            <div class="sticky">
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'rosegold'}))">18K Rose
+                    Gold</button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'gold'}))">18K Yellow
+                    Gold</button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'platinum'}))">18K White
+                    Gold</button>
+            </div>
+
+            <div class="separater"></div>
+            <div id="accordion"></div>
+
+
+
+
+            <!-- <div class="section hide-when-engrave">
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.35}}))">94010R
+                    0.35 ct </button>
+
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.4 }}))">94010R
+                    0.4 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.55}}))">94010R
+                    0.55 ct </button>
+
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.6 }}))">94010R
+                    0.6 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.75}}))">94010R
+                    0.75 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 1.0 }}))">94010R
+                    1.00 ct </button>
+            </div>
+            <div class="separater"></div>
+
+            <div class="section hide-when-engrave">
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.35}}))">94007R
+                    0.35 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.4 }}))">94007R
+                    0.4 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.55}}))">94007R
+                    0.55 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.6 }}))">94007R
+                    0.6 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.75}}))">94007R
+                    0.75 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 1.0 }}))">94007R
+                    1.00 ct </button>
+
+            </div>
+            <div class="separater"></div>
+
+            <div class="section hide-when-engrave">
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.35}}))">94007E
+                    0.35 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.4 }}))">94007E
+                    0.4 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.55}}))">94007E
+                    0.55 ct </button>
+
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.6 }}))">94007E
+                    0.6 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.75}}))">94007E
+                    0.75 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 1.0 }}))">94007E
+                    1.00 ct </button>
+            </div>
+            <div class="separater"></div>
+
+            <div class="section hide-when-engrave">
+
+
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.35}}))">94007N
+                    0.35 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.4 }}))">94007N
+                    0.4 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.55}}))">94007N
+                    0.55 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.6 }}))">94007N
+                    0.6 ct </button>
+
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.75}}))">94007N
+                    0.75 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 1.0 }}))">94007N
+                    1.00 ct </button>
+            </div>
+            <div class="separater"></div> -->
+
+            <!-- <div class="section hide-when-engrave">
+            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.35}}))">94007R 0.35 ct </button>
+            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.55}}))">94007R 0.55 ct </button>
+            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.75}}))">94007R 0.75 ct </button>
+            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 1.0 }}))">94007R 1.00 ct </button>
+        </div> -->
+
+            <!-- <div class="section hide-when-engrave">
+
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.35}}))">94010E
+                    0.35 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.4 }}))">94010E
+                    0.4 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.55}}))">94010E
+                    0.55 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.6 }}))">94010E
+                    0.6 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.75}}))">94010E
+                    0.75 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 1.0 }}))">94010E
+                    1.00 ct </button>
+
+
+            </div>
+            <div class="separater"></div>
+
+            <div class="section hide-when-engrave">
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.35}}))">94010N
+                    0.35 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.4 }}))">94010N
+                    0.4 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.55}}))">94010N
+                    0.55 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.6 }}))">94010N
+                    0.6 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.75}}))">94010N
+                    0.75 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 1.0 }}))">94010N
+                    1.00 ct </button>
+            </div>
+            <div class="separater"></div>
+
+            <div class="section hide-when-engrave">
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.35}}))">94106R
+                    0.35 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.4 }}))">94106R
+                    0.4 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.55}}))">94106R
+                    0.55 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.6 }}))">94106R
+                    0.6 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.75}}))">94106R
+                    0.75 ct </button>
+                <button class="button-general button-blue"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 1.0 }}))">94106R
+                    1.00 ct </button>
+            </div>
+
+            <div class="separater"></div>
+
+            <div class="section hide-when-engrave">
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94233E', fingerSize: 0, diamondSize: 0.35}}))">94233E
+                    0.35 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94233E', fingerSize: 0, diamondSize: 0.4 }}))">94233E
+                    0.4 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94233E', fingerSize: 0, diamondSize: 0.55}}))">94233E
+                    0.55 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94233E', fingerSize: 0, diamondSize: 0.6 }}))">94233E
+                    0.6 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94233E', fingerSize: 0, diamondSize: 0.75}}))">94233E
+                    0.75 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94233E', fingerSize: 0, diamondSize: 1.0 }}))">94233E
+                    1.00 ct </button>
+            </div>
+            <div class="separater"></div>
+
+
+            <div class="section hide-when-engrave">
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94234E', fingerSize: 0, diamondSize: 0.35}}))">94234E
+                    0.35 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94234E', fingerSize: 0, diamondSize: 0.4 }}))">94234E
+                    0.4 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94234E', fingerSize: 0, diamondSize: 0.55}}))">94234E
+                    0.55 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94234E', fingerSize: 0, diamondSize: 0.6 }}))">94234E
+                    0.6 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94234E', fingerSize: 0, diamondSize: 0.75}}))">94234E
+                    0.75 ct </button>
+                <button class="button-general"
+                    onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94234E', fingerSize: 0, diamondSize: 1.0 }}))">94234E
+                    1.00 ct </button>
+            </div> -->
+
+
+            <div class="separater"></div>
+
+
+
+            <div class="separater"></div>
+
+        </div>
+        <div class="layoutgui-right">
+            <div id='myroot'
+                style="width: 100%; height: 100%; position: relative; background-size: cover; background-image: url('./img/bg/8a.jpeg'); ">
+            </div>
+            <!-- <div class="cm-physical"></div> -->
+        </div>
+
+        <style>
+            @font-face {
+                font-family: 'Edwardian';
+                src: url('/fonts/itc-font/EdwardianScriptITC.ttf') format('truetype');
+            }
+        </style>
+    </div>
+    <style>
+        html,
+        body,
+        #myroot {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .hidden-item {
+            display: none;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row-symbols {
+            width: 100%;
+            padding-left: 20px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+
+        .web-symbol {
+            cursor: pointer;
+            display: inline-flex;
+            padding: 0px;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
+            margin: 0px 4px;
+            background-color: #bababa;
+            border-radius: 10px;
+        }
+
+        .cm-physical {
+            position: absolute;
+            top: calc(50% - 10.0cm / 2);
+            left: calc(50% - 1cm * 1.388888 / 2);
+            width: calc((1cm * 1.388888));
+            height: 10.0cm;
+            border: red solid 1px;
+            border-top: 0px;
+            border-bottom: 0px;
+        }
+
+        .layoutgui {
+            width: 100%;
+            height: calc(100% - 30px * 0.0);
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .layoutgui-left {
+            overflow: scroll;
+            width: 100%;
+            height: calc(320px);
+
+        }
+
+        .layoutgui-right {
+            width: 100%;
+            height: calc(100% - 320px);
+            position: relative;
+        }
+
+        @media screen and (min-width: 767px) {
+            .layoutgui {
+                width: 100%;
+                height: calc(100% - 30px * 0.0);
+                display: flex;
+                flex-direction: row;
+
+            }
+
+            .layoutgui-left {
+                overflow: scroll;
+                height: 100%;
+                width: calc(320px);
+
+            }
+
+            .layoutgui-right {
+                height: 100%;
+                width: calc(100% - 320px);
+            }
+        }
+
+        .button-general {
+            display: inline-block;
+            height: 50px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .button-blue {
+            background-color: #00bacd;
+            color: white;
+        }
+
+        .input-general {
+            display: inline-block;
+            height: 50px;
+            width: calc(100% - 40px);
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            padding-left: 15px;
+            font-size: 17px;
+        }
+
+        .input-general.hidden-input {
+            display: none;
+        }
+
+
+        .engrave .hide-when-engrave {
+            /* display: none; */
+        }
+
+        .separater {
+            margin: 10px 0px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .sticky {
+            position: sticky;
+            top: 0px;
+            background-color: #f1f1f1;
+        }
+
+        .section {
+            padding: 10px;
+        }
+
+        .only-show-when-engrave {
+            display: none;
+        }
+
+        .engrave .only-show-when-engrave {
+            display: block;
+        }
+
+        #display-text {
+            width: 100%;
+            height: 50px;
+            background-color: rgba(0, 0, 255, 0.1);
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            padding: 15px;
+            display: flex;
+        }
+
+        .inline-img {
+            display: inline-block;
+            line-height: 16px;
+            height: 16px;
+            font-size: 18px;
+        }
+
+        .inline-img>* {
+            display: inline-block;
+            height: 16px;
+            line-height: 16px;
+        }
+    </style>
+
+    <script src="./jquery/external/jquery/jquery.js"></script>
+    <script src="./jquery/jquery-ui.min.js"></script>
+
+    <script type="module">
+        'use strict';
+
+        class AgapeEngineRuntime {
+            constructor({
+                baseURL,
+                publicAccessToken,
+                domElement,
+            }) {
+                this.baseURL = baseURL
+                this.publicAccessToken = publicAccessToken
+                this.domElement = domElement
+
+                let params = new URLSearchParams(location.search)
+                // params.set('seriesID', '94010R')
+                params.set('seriesID', '94106R')
+                params.set('fingerSize', '15')
+                params.set('diamondSize', '0.35')
+                params.set('colorProfile', 'rosegold')
+                params.set('view', 'normal')
+                params.set('dpr', 1.0)
+                params.set('baseURL', `${baseURL}`)
+
+                /*
+                params.set('px', 0.0)
+                params.set('py', 26 * 1.3)
+                params.set('pz', 38 * 1.3)
+                
+                params.set('tx', 0.0)
+                params.set('ty', Math.PI * 0.25)
+                params.set('tz', 0.0)
+                */
+
+                // params.set('px', 0.0)
+                // params.set('py', 26 * 1.3)
+                // params.set('pz', 0)
+
+                // params.set('tx', 0.0)
+                // params.set('ty', Math.PI * 0.5)
+                // params.set('tz', 0.0)
+
+                /////////
+
+                // params.set('px', 0.0)
+                // params.set('py', 26 * 1.7)
+                // params.set('pz', 38 * 1.7)
+
+                // params.set('tx', 0.0)
+                // params.set('ty', Math.PI * 0.25)
+                // params.set('tz', 0.0)
+
+                /////////
+
+                params.set('px', 0.0)
+                params.set('py', 26 * 1.7 * 1.9)
+                params.set('pz', 38 * 1.7 * 1.9)
+
+                params.set('tx', 0.0)
+                params.set('ty', Math.PI * 0.25)
+                params.set('tz', 0.0)
+
+                params.set('text1', document.body.querySelector('#text1').value)
+
+                console.log(params.toString())
+
+                this.params = params
+
+                this.loadRing = async (args) => {
+                    let e = {
+                        detail: args
+                    }
+
+                    params.set('seriesID', encodeURIComponent(e.detail.seriesID))
+                    params.set('fingerSize', encodeURIComponent(e.detail.fingerSize))
+                    params.set('diamondSize', encodeURIComponent(e.detail.diamondSize))
+
+                    return this.preload().then(() => {
+                        this.visualiseLayer()
+                    })
+                }
+
+                this.setColorProfile = (args) => {
+                    let e = {
+                        detail: args
+                    }
+                    params.set('colorProfile', e.detail.type)
+
+                    return this.preload().then(() => {
+                        this.visualiseLayer()
+                    })
+                }
+
+
+                this.setRatioDPR = (args) => {
+                    //
+                    let e = {
+                        detail: args
+                    }
+                    params.set('colorProfile', e.detail)
+
+                    return this.preload().then(() => {
+                        this.visualiseLayer()
+                    })
+                }
+
+                this.setViewMode = ({ mode }) => {
+                    params.set('view', mode)
+
+                    return this.preload().then(() => {
+
+                        this.visualiseLayer()
+                    })
+                }
+
+                this.setEngraving = (args) => {
+                    let e = {
+                        detail: args
+                    }
+
+                    let item = {
+                        // view: 'engrave',
+                        text1: e.detail.text1,
+                        text2: e.detail.text2,
+                        text3: e.detail.text3,
+                        logo: e.detail.logo,
+                        font: e.detail.font,
+                    }
+
+                    // let displayText = document.querySelector('#display-text')
+
+                    // if (item.font === 'f1') {
+                    //     displayText.style.fontFamily = 'Arial'
+                    // }
+
+                    for (let kn in item) {
+                        params.set(`${kn}`, item[kn])
+                    }
+
+                    console.log(params.toString())
+
+                    return this.preload().then(() => {
+                        this.visualiseLayer()
+                    })
+                }
+
+
+                this.preloadAll = ({ onStart = () => { }, onProgress = () => { }, onDone = () => { } }) => {
+                    localStorage.setItem('needsPreloadAll', 'needsPreloadAll')
+                    localStorage.removeItem('preloadProgress')
+                    onStart()
+                    let tt = setInterval(() => {
+                        let preloadProgress = localStorage.getItem('preloadProgress')
+                        if (preloadProgress) {
+                            onProgress({ value: preloadProgress })
+                        }
+
+                        let needsPreloadAll = localStorage.getItem('needsPreloadAll')
+                        if (needsPreloadAll === 'done') {
+                            clearInterval(tt)
+                        }
+                    })
+
+                    let onLoader = setInterval(() => {
+                        let needsPreloadAll = localStorage.getItem('needsPreloadAll')
+                        if (needsPreloadAll === 'done') {
+                            clearInterval(onLoader)
+                            localStorage.removeItem('preloadProgress')
+                            onDone()
+                        }
+                    })
+                }
+
+                this.autoRotate = false
+
+                this.toggleRotate = ({ }) => {
+                    this.autoRotate = !this.autoRotate
+                    if (this.autoRotate) {
+                        localStorage.setItem('toggleRotate', 'enable')
+                    } else {
+                        localStorage.removeItem('toggleRotate')
+                    }
+                }
+
+                this.toggleDevtools = () => {
+                    this.enableDevTools = !this.enableDevTools
+                    if (this.enableDevTools) {
+                        localStorage.setItem('enableDevtools', 'yes')
+                    } else {
+                        localStorage.removeItem('enableDevtools')
+                    }
+                }
+
+                this.getLatestURL = () => {
+                    let signature = (Math.random() * 100000).toFixed(0)
+                    return {
+                        url: `./example8-frame.html?signature=${signature}&${params.toString()}`,
+                        signature
+                    }
+                }
+
+                this.preload = () => {
+                    let chosen = this.iframes.shift()
+                    this.iframes.push(chosen)
+
+                    let cam = sessionStorage.getItem('cam-info')
+                    if (cam) {
+                        cam = JSON.parse(cam)
+
+                        // console.log(cam, new Vector3(cam.px, cam.py, cam.pz), new Vector3(cam.tx, cam.ty, cam.tz))
+                        params.set('px', cam.px)
+                        params.set('py', cam.py)
+                        params.set('pz', cam.pz)
+                        params.set('tx', cam.tx)
+                        params.set('ty', cam.ty)
+                        params.set('tz', cam.tz)
+                    }
+
+                    let { url, signature } = this.getLatestURL()
+
+                    params.set('signature', signature)
+
+                    chosen.domElement.src = url
+
+                    return new Promise(async (resolve, reject) => {
+                        let tt = setInterval(() => {
+                            if (this.signaturesReply[signature]) {
+                                clearInterval(tt)
+                                resolve()
+                                delete this.signaturesReply[signature]
+                            }
+                        })
+                    })
+                }
+
+                this.visualiseLayer = () => {
+                    // this.iframes.slice().forEach((frame, idx, n) =>{
+                    //     frame.layer({ idx: idx, visble: true })
+                    // })
+
+                    setTimeout(() => {
+                        this.iframes.slice().forEach((frame, idx, n) => {
+                            frame.layer({ idx: idx, visble: idx === n.length - 1 })
+                        })
+                    }, 0)
+                }
+
+                this.signaturesReply = {}
+                window.addEventListener('message', (ev) => {
+                    if (ev.origin === location.origin && ev.data?.signature && ev.data?.action === 'doneLoadingRing') {
+                        this.signaturesReply[ev.data?.signature] = ev.data
+                        console.log('parent got message', ev.data)
+                    }
+                    if (ev.origin === location.origin && ev.data?.action === 'getRotation' && ev?.data?.signature === params.get('signature')) {
+                        sessionStorage.setItem('cam-info', JSON.stringify(ev.data.data))
+                    }
+                })
+
+                this.iframes = [
+                    new MyFrame({
+                        parent: this,
+                        idx: 1
+                    }),
+                    new MyFrame({
+                        parent: this,
+                        idx: 2,
+                    }),
+                    new MyFrame({
+                        parent: this,
+                        idx: 3,
+                    }),
+                ]
+
+                window.addEventListener('take-picture', () => {
+                    this.iframes.forEach((it, idx) => {
+                        it.domElement.contentWindow.postMessage({
+                            action: 'take-picture',
+                            data: {}
+                        });
+                    })
+                })
+
+                let preventDualDownload = 0
+                window.addEventListener('message', (ev) => {
+                    if (ev.data.action === 'receive-picture') {
+                        console.log(ev.data.data)
+
+                        clearTimeout(preventDualDownload)
+                        preventDualDownload = setTimeout(() => {
+                            let a = document.createElement('a')
+                            a.href = ev.data.data
+                            a.download = 'diamond-ring.png'
+                            a.target = '_blank'
+                            a.click()
+                        }, 50)
+
+                    }
+                })
+            }
+        }
+
+        class MyFrame {
+            constructor({ parent, idx = 0 }) {
+                this.domElement = document.createElement('iframe')
+                this.domElement.style.width = `100%`
+                this.domElement.style.height = `100%`
+                this.domElement.style.position = `absolute`
+                this.domElement.style.top = `0px`
+                this.domElement.style.left = `0px`
+                this.domElement.style.border = `0`
+                this.domElement.style.transition = `opacity 0.3s ease-in-out`
+                this.domElement.style.zIndex = idx
+                // this.domElement.style.backgroundImage = `url('/img/bg/bg.jpeg')`
+                // this.domElement.style.backgroundSize = 'cover'
+
+                this.parent = parent
+
+                this.visble = 0
+                this.parent.domElement.append(this.domElement)
+
+
+                // this.callAction = (type, data) => {
+                //   let signature = `${(Math.random() * 1000000).toFixed(0)}`
+                //   return new Promise((resolve, reject) =>{
+                //     let tt = setInterval(() =>{
+                //       if (this.signaturesReply[signature]) {
+                //         clearInterval(tt)
+                //         let data = this.signaturesReply[signature]
+                //         resolve(data)
+                //         delete this.signaturesReply[signature]
+                //       }                    
+                //     })
+
+                //     this.domElement.contentWindow.postMessage({
+                //       action: type,
+                //       data: data,
+                //       signature: signature
+                //     });
+                //   })
+                // }
+            }
+            layer({ idx, visble }) {
+                this.visble = visble
+                this.domElement.style.opacity = visble ? 1 : 0
+                // this.domElement.style.visibility = visble ? 'visible' : 'hidden'
+                this.domElement.style.zIndex = idx
+
+                setTimeout(() => {
+                    if (!visble) {
+                        this.domElement.src = 'about:blank'
+                    }
+                }, 500);
+
+            }
+        }
+        //
+
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+
+        if (localStorage.getItem('ok') === 'ok' || true) {
+            let baseURL = `https://diamond-sdk-git-2024-july-fancycut-agape.vercel.app`
+            if (location.origin.includes('localhost')) {
+                baseURL = `http://localhost:3001`
+            }
+
+            let sdk = new AgapeEngineRuntime({
+                baseURL: baseURL,
+                publicAccessToken: `emphasis-2023-11`,
+                domElement: document.querySelector('#myroot'),
+            })
+
+            $(function () {
+                fetch(`${baseURL}/api/getData`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        publicAccessToken: `emphasis-2023-11`,
+                    }),
+                })
+                    .then((r) => {
+                        if (!r.ok) {
+                            throw new Error('bad response')
+                        }
+
+                        return r.json()
+                    }).then((result) => {
+                        //
+
+                        console.log(result.list)
+
+                        let list = result.list
+
+                        let accordionList = document.querySelector('#accordion')
+
+                        $(accordionList).empty()
+
+                        let groups = []
+                        list.forEach((it) => {
+                            if (!groups.some(r => r.seriesID === it.seriesID)) {
+                                groups.push({
+                                    group: it.group,
+                                    seriesID: it.seriesID
+                                })
+                            }
+                        })
+
+                        groups.forEach((gp, idx) => {
+
+                            let groupedList = list.filter(it => {
+                                return it.seriesID === gp.seriesID
+                            })
+
+                            let line2 = groupedList.map(it => {
+                                return `
+                                        <button 
+                                        class="button-general"
+                                        onclick="  window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '${it.seriesID}', fingerSize: ${it.fingerSize || 0}, diamondSize: ${it.diamondSize}}}));">
+                                        ${it.seriesID}  ${it.diamondSize}ct </button>
+                                `
+                            })
+
+                            console.log(line2)
+
+                            $(/* html */`
+                                <h3 class="">${gp.group} - ${gp.seriesID}</h3>
+                                <div class="section hide-when-engrave">
+                                    ${line2.join('\n')}
+                                </div>
+                            `).appendTo(accordionList)
+                        })
+
+                        $("#accordion").accordion({
+                            heightStyle: "content"
+                        });
+
+                    })
+
+            });
+
+            sdk.loadRing({
+                seriesID: `94585R`,
+                fingerSize: 15,
+                diamondSize: 0.30,
+            })
+
+            sdk.setColorProfile({
+                type: 'rosegold',
+            })
+
+            // --------
+            //  Button
+            // --------
+
+            window.addEventListener('toggle-rotate', ({ detail: { el, } }) => {
+                sdk.toggleRotate({})
+            })
+
+            window.addEventListener("toggle-devtools", () => {
+                sdk.toggleDevtools({})
+            })
+
+            window.addEventListener('preload-all', ({ detail: { el, } }) => {
+                sdk.preloadAll({
+                    onStart: () => {
+                        console.log('start')
+                        el.innerText = 'Preloading...'
+                    },
+                    onProgress: ({ value }) => {
+                        console.log('onProgress', value)
+                        el.innerText = value
+                    },
+                    onDone: () => {
+                        console.log('done')
+                        el.innerText = 'Preload All'
+                    }
+                })
+            })
+            //
+            let setDOM = async ({ fullString, mainHTML, reset = true }) => {
+                if (reset) {
+
+                    mainHTML.innerHTML = ''
+                }
+
+                let textSize = 16
+                for (let i = 0; i < fullString.length; i++) {
+                    let char = fullString[i]
+                    if (char === '[') {
+                        await new Promise((resolve) => {
+                            let image = document.createElement('img')
+                            $(image).attr('symbol', char)
+
+                            image.style.display = 'inline'
+                            image.style.height = `${textSize}px`
+                            mainHTML.append(image)
+                            image.onload = () => { resolve() }
+                            image.src = "./basic/engrave/promessa/heart_fill.png"
+                        })
+                    } else if (char === ']') {
+                        await new Promise((resolve) => {
+                            let image = document.createElement('img')
+                            $(image).attr('symbol', char)
+
+                            image.style.display = 'inline'
+                            image.style.height = `${textSize}px`
+
+                            mainHTML.append(image)
+                            image.onload = () => { resolve() }
+                            image.src = "./basic/engrave/promessa/heart_hollow.png"
+                        })
+                    } else if (char === '<') {
+                        await new Promise((resolve) => {
+                            let image = document.createElement('img')
+                            $(image).attr('symbol', char)
+
+                            image.style.display = 'inline'
+                            image.style.height = `${textSize}px`
+                            mainHTML.append(image)
+                            image.onload = () => { resolve() }
+                            image.src = "./basic/engrave/promessa/promessa_heart_border.png"
+                        })
+                    } else if (char === '>') {
+
+                        await new Promise((resolve) => {
+                            let image = document.createElement('img')
+                            $(image).attr('symbol', char)
+
+                            image.style.display = 'inline'
+                            image.style.height = `${textSize}px`
+                            mainHTML.append(image)
+                            image.onload = () => { resolve() }
+                            image.src = "./basic/engrave/promessa/promessa_heart.png"
+                        })
+                    } else {
+                        mainHTML.append(document.createTextNode(char))
+                    }
+                }
+
+                return mainHTML
+            }
+
+            let getDOM = () => {
+                let displayText = document.querySelector('#display-text')
+                let stringStorage = ''
+                for (let i = 0; i < displayText.childNodes.length; i++) {
+                    /** @type {HTMLElement} */
+                    let el = displayText.childNodes[i]
+
+                    if (el.nodeName === '#text') {
+                        stringStorage += el.textContent.trim()
+                        continue
+                    } else {
+                        let attrVal = $(el).attr('symbol')
+                        stringStorage += attrVal.trim()
+                    }
+                }
+
+                stringStorage = stringStorage || ''
+
+                stringStorage = stringStorage.trim()
+
+                return stringStorage
+            }
+
+
+
+            // prefill data
+            {
+                let display = document.querySelector('#display-text')
+                setDOM({ fullString: 'AB<CD', mainHTML: display, reset: true }).then(() => {
+                    window.dispatchEvent(new CustomEvent('change-text', {
+                        detail: {
+                            text1: 'AB<CD',
+                            text2: document.querySelector('#text2').value,
+                            text3: document.querySelector('#text3').value,
+                            font: document.querySelector('#font').value,
+                            logo: document.querySelector('#logo').value,
+                        }
+                    }))
+                })
+            }
+
+
+            // window.addEventListener('render-engrave', () => {
+            //     let displayText = document.querySelector('#display-text')
+            //     displayText.innerHTML = ''
+            //     setDOM({ fullString: document.querySelector('#text1').value, mainHTML: displayText })
+            // })
+
+            // document.querySelector('#display-text').addEventListener('keydown', (e) => {
+            //     let text1 = document.querySelector('#text1')
+            //     let display = document.querySelector('#display-text')
+
+            //     if (e.key === 'Backspace') {
+            //         return
+            //     }
+
+            //     if (e.key === 'ArrowLeft') {
+            //         return
+            //     }
+            //     if (e.key === 'ArrowRight') {
+            //         return
+            //     }
+
+            //     if (e.key.length === 1) {
+            //         return
+            //     }
+
+            //     e.preventDefault()
+            //     e.stopPropagation()
+            //     e.stopImmediatePropagation()
+            // })
+            document.querySelector('#display-text').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault()
+                    e.stopImmediatePropagation()
+                    e.stopPropagation()
+                    return
+                }
+
+                let text1 = document.querySelector('#text1')
+                if (e.ctrlKey || e.metaKey || (e.key === 'Backspace' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Meta' || e.key === 'Control' || e.key === 'Alt' || e.key === 'Shift')) {
+                    return
+                }
+
+                let dom = getDOM()
+                let length = dom.length
+                if (length >= 5) {
+                    e.preventDefault()
+                    e.stopImmediatePropagation()
+                    e.stopPropagation()
+                    return
+                }
+
+            })
+            document.querySelector('#display-text').addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault()
+                    e.stopImmediatePropagation()
+                    e.stopPropagation()
+                    return
+                }
+
+                Promise.resolve().then(() => {
+                    clearTimeout(window.timer001)
+                    window.timer001 = setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent('change-text', {
+                            detail: {
+                                text1: document.querySelector('#text1').value,
+                                text2: document.querySelector('#text2').value,
+                                text3: document.querySelector('#text3').value,
+                                font: document.querySelector('#font').value,
+                                logo: document.querySelector('#logo').value,
+                            }
+                        }))
+                    }, 1500)
+                })
+            })
+
+            setInterval(() => {
+                let dom = getDOM()
+                let length = dom.length
+                if (length > 5) {
+                    setDOM({
+                        fullString: dom,
+                        mainHTML: document.querySelector('#display-text'),
+                        reset: true
+                    })
+                }
+            })
+
+            window.addEventListener('click-symbol', async (e) => {
+                let text1 = document.querySelector('#text1')
+                let display = document.querySelector('#display-text')
+
+                // let text1 = document.querySelector('#text1')
+                // text1.value = text1.value + e.detail.content
+                // text1.value = text1.value.slice(0, 5)
+                let thisSymbol = e.detail.content
+
+                if (getDOM().length >= 5) {
+                    return
+                }
+
+                await setDOM({ fullString: thisSymbol, mainHTML: display, reset: false })
+
+                window.dispatchEvent(new CustomEvent('change-text', {
+                    detail: {
+                        text1: document.querySelector('#text1').value,
+                        text2: document.querySelector('#text2').value,
+                        text3: document.querySelector('#text3').value,
+                        font: document.querySelector('#font').value,
+                        logo: document.querySelector('#logo').value,
+                    }
+                }))
+
+                // let oldText = await getDOM()
+                // await setDOM({ fullString: oldText + thisSymbol, mainHTML: display })
+
+                // text1.value = await getDOM()
+                // display.focus()
+
+
+                // let char = thisSymbol
+                // let html = ''
+                // if (char === '&') {
+                //     html += `<span class="inline-img">&</span>`
+                // } else if (char === '♥') {
+                //     html += `<span class="inline-img"><image src="./basic/engrave/promessa/heart_fill.png"></span>`
+                // } else if (char === '♡') {
+                //     html += `<span class="inline-img"><image src="./basic/engrave/promessa/heart_hollow.png"></span>`
+                // } else if (char === '◛') {
+                //     html += `<span class="inline-img"><image src="./basic/engrave/promessa/promessa_heart_border.png"></span>`
+                // } else if (char === '◚') {
+                //     html += `<span  class="inline-img"><image src="./basic/engrave/promessa/promessa_heart.png"></span>`
+                // } else {
+                //     html += `<span class="inline-img"><span>${char}</span></span>`
+                // }
+
+                // let item = document.createElement('span')
+                // item.setAttribute('symbol', char)
+                // item.innerHTML = html
+
+                // displayText.append(item)
+            })
+
+            window.addEventListener('change-color', (e) => {
+                sdk.setColorProfile({
+                    type: e.detail,
+                })
+            })
+
+            window.addEventListener('change-dpr', (e) => {
+                sdk.setRatioDPR(e.detail)
+            })
+
+            window.addEventListener('change-diamond-size', (e) => {
+                // console.log(e.detail)
+
+                let hasEngrave = e.detail.seriesID === '94010R' || e.detail.seriesID === '94007R' || e.detail.seriesID === '94106R'
+
+                if (hasEngrave) {
+                    if (!window.document.body.classList.contains('engrave')) {
+                        window.document.body.classList.add(['engrave'])
+                    }
+                } else {
+                    if (window.document.body.classList.contains('engrave')) {
+                        window.document.body.classList.remove(['engrave'])
+                    }
+                }
+
+                sdk.loadRing({
+                    ...e.detail
+                    // seriesID: e.detail.seriesID,
+                    // fingerSize: e.detail.fingerSize,
+                    // diamondSize: e.detail.diamondSize,
+                })
+            })
+
+            window.addEventListener('change-viewMode', (e) => {
+                if (e.detail === 'engrave') {
+                    window.document.body.classList.add(['engrave'])
+                    sdk.setViewMode({ mode: e.detail })
+                } else {
+                    window.document.body.classList.remove(['engrave'])
+                    sdk.setViewMode({ mode: e.detail })
+                }
+            })
+
+            window.addEventListener('focus-text', (e) => {
+                localStorage.setItem('focus-text', true)
+                // console.log('write', 'focus-text')
+                localStorage.removeItem('toggleRotate')
+            })
+
+
+            window.addEventListener('reset-focus', (e) => {
+                localStorage.setItem('reset-focus', true)
+                // console.log('write', 'focus-text')
+                localStorage.removeItem('toggleRotate')
+            })
+
+            window.addEventListener('reset-focus-instant', (e) => {
+                localStorage.setItem('reset-focus-instant', true)
+                // console.log('write', 'focus-text')
+                localStorage.removeItem('toggleRotate')
+            })
+
+            // window.addEventListener('toggle-viewMode', (e) => {
+            //     if (window.document.body.classList.contains('engrave')) {
+
+            //         // sdk.setViewMode({ mode: 'normal' })
+            //     } else {
+            //         window.document.body.classList.add(['engrave'])
+            //         // window.dispatchEvent(new CustomEvent('change-diamond-size', { detail: { seriesID: '94010R', fingerSize: 15, diamondSize: 1.0 } }))
+            //         // sdk.setViewMode({ mode: 'normal' })
+            //     }
+            // })
+
+            window.addEventListener('change-camera', (e) => {
+                if (e.detail === 'engrave') {
+                    // window.document.body.classList.add(['engrave'])
+                    sdk.setViewMode({ mode: e.detail })
+                } else {
+                    // window.document.body.classList.remove(['engrave'])
+                    sdk.setViewMode({ mode: e.detail })
+                }
+            })
+
+            window.addEventListener('change-text', async (e) => {
+                let displayText = document.querySelector('#display-text')
+
+                sdk.setEngraving({
+                    text1: await getDOM(),
+                    text2: e.detail.text2,
+                    text3: e.detail.text3,
+                    logo: e.detail.logo,
+                    font: e.detail.font,
+                })
+            })
+        } else {
+            location.assign('/')
+        }
+
+
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+        //--------------------------------
+
+    </script>
+
+</body>
+
+</html>

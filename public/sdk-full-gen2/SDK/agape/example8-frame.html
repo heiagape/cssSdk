@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+    <style>
+        @font-face {
+            font-family: 'Edwardian';
+            font-style: normal;
+            font-weight: 100 900;
+            src: url('./fonts/itc-font/EdwardianScriptITC.ttf') format('truetype');
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div style="height: 60px;"></div> -->
+
+
+
+    <!-- <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.55}))">0.55</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.75}))">0.75</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 1.0}))">1.0</button> -->
+
+    <div id='myroot' style="width: 100%; height: 100%;"></div>
+
+
+    <style>
+        @font-face {
+            font-family: 'Edwardian';
+            src: url('./fonts/itc-font/EdwardianScriptITC.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'EdwardianChineseOnly';
+            src: url('./fonts/itc-font/EdwardianScriptITC.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'kaifont';
+            src:
+                local('標楷體'),
+                local('楷書'),
+                local('DFKai-sb'),
+                url('./fonts/ks-font/MKaiHK-Medium.eot') format('embedded-opentype'),
+                url('./fonts/ks-font/MKaiHK-Medium.ttf') format('truetype'),
+                url('./fonts/ks-font/MKaiHK-Medium.woff') format('woff'),
+                url('./fonts/ks-font/MKaiHK-Medium.woff2') format('woff2'),
+                url('./fonts/ks-font/MKaiPRCW45-Medium.eot') format('eot'),
+                url('./fonts/ks-font/MKaiPRCW45-Medium.ttf') format('truetype'),
+                url('./fonts/ks-font/MKaiPRCW45-Medium.woff') format('woff'),
+                url('./fonts/ks-font/MKaiPRCW45-Medium.woff2') format('woff2');
+        }
+    </style>
+    </div>
+    <style>
+        html,
+        body,
+        #myroot {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .layoutgui {
+            width: 100%;
+            height: calc(100% - 30px * 0.0);
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .layoutgui-left {
+            overflow: scroll;
+            width: 100%;
+            height: calc(300px);
+
+        }
+
+        .layoutgui-right {
+            width: 100%;
+            height: calc(100% - 300px);
+        }
+
+        @media screen and (min-width: 767px) {
+            .layoutgui {
+                width: 100%;
+                height: calc(100% - 30px * 0.0);
+                display: flex;
+                flex-direction: row;
+
+            }
+
+            .layoutgui-left {
+                overflow: scroll;
+                height: 100%;
+                width: calc(300px);
+
+            }
+
+            .layoutgui-right {
+                height: 100%;
+                width: calc(100% - 300px);
+            }
+        }
+
+        .button-general {
+            display: inline-block;
+            height: 50px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+
+        .input-general {
+            display: inline-block;
+            height: 50px;
+            width: calc(100% - 40px);
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            padding-left: 15px;
+        }
+
+
+        .engrave .hide-when-engrave {
+            display: none;
+        }
+
+        .separater {
+            margin: 10px 0px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .sticky {
+            position: sticky;
+            top: 0px;
+            background-color: #f1f1f1;
+        }
+
+        .section {
+            padding: 10px;
+        }
+
+        .only-show-when-engrave {
+            display: none;
+        }
+
+        .engrave .only-show-when-engrave {
+            display: block;
+        }
+    </style>
+
+    <script type="module">
+        if (localStorage.getItem('ok') === 'ok' || true) {
+
+            // let baseURL = `https://diamond-sdk-git-2024-july-fancycut-agape.vercel.app`
+            let baseURL = `https://diamond-sdk-git-2024-july-fancycut-agape-gen2.vercel.app`
+            if (location.origin.includes('localhost')) {
+                baseURL = `http://localhost:3001`
+            }
+
+            // if (location.origin.includes('192.168.1.84')) {
+            //     baseURL = `https://wonglok.ap.ngrok.io`
+            // }
+
+            window.addEventListener('message', (e) => {
+                if (e.data && e.data?.action === 'getRotaion') {
+                    console.log('getRotaion', e.data)
+                }
+
+            })
+
+            let sdkPath = `${baseURL}/sdk-build/vanilla.module.js?r3=${Math.random()}`
+
+            import(sdkPath).then((agape) => {
+                //////////////
+                // SDK Code //
+                //////////////
+
+                let sdk = new agape.AgapeEngineSDKForCSS({
+                    publicAccessToken: `emphasis-2023-11`,
+                    domElement: document.querySelector('#myroot'),
+                })
+
+                window.addEventListener('message', (e) => {
+                    if (e.data && e.data?.action === 'change-text') {
+                        console.log('change-text', e.data)
+                        sdk.setEngraving({
+                            text1: e.data.data.text1,
+                            text2: e.data.data.text2,
+                            text3: e.data.data.text3,
+                            logo: e.data.data.logo,
+                            font: e.data.data.font,
+                        })
+                    }
+                })
+
+                window.addEventListener('message', (ev) => {
+                    if (ev.data && ev.data.action === 'take-picture') {
+                        Promise.resolve(sdk.takePicture()).then(r => {
+                            window.top.postMessage({
+                                action: 'receive-picture',
+                                data: r
+                            }, {
+                                origin: location.origin
+                            })
+                        })
+                        console.log('take picture')
+                    }
+                    if (ev.data && ev.data.action === 'setRotation') {
+                        sdk.setRotation({
+                            // px: ev.data.data['px'],
+                            // py: ev.data.data['py'],
+                            // pz: ev.data.data['pz'],
+
+                            // tx: ev.data.data['tx'],
+                            // ty: ev.data.data['ty'],
+                            // tz: ev.data.data['tz'],
+
+                            ...ev.data.data,
+                        })
+
+                        // Promise.resolve(sdk.takePicture()).then(r => {
+                        //     window.top.postMessage({
+                        //         action: 'receive-picture',
+                        //         data: r
+                        //     }, {
+                        //         origin: location.origin
+                        //     })
+                        // })
+                        // console.log('take picture')
+                    }
+                })
+
+                setInterval(() => {
+                    let value = localStorage.getItem('needsPreloadAll')
+                    if (value === 'needsPreloadAll') {
+                        localStorage.setItem('needsPreloadAll', 'loading')
+                        sdk.preloadAll({
+                            onProgress: ({ progress }) => {
+                                localStorage.setItem('preloadProgress', (progress * 100.0).toFixed(2) + '%')
+                            }
+                        }).then(() => {
+                            localStorage.setItem('needsPreloadAll', 'done')
+                        })
+                    }
+                }, 100)
+
+                window.top.postMessage({
+                    type: 'sdk-ok',
+                    data: {}
+                }, '*')
+
+                let link = new URL(location.href)
+
+                let params = link.searchParams
+
+                console.log(params.toString())
+                console.log(params.toString())
+                // console.log(params.toString())
+                // console.log(params.toString())
+
+                let loadRingParams = {}
+                if (params.has('seriesID')) {
+                    loadRingParams['seriesID'] = params.get('seriesID')
+                }
+                if (params.has('fingerSize')) {
+                    loadRingParams['fingerSize'] = Number(params.get('fingerSize'))
+                }
+                if (params.has('diamondSize')) {
+                    loadRingParams['diamondSize'] = Number(params.get('diamondSize'))
+                }
+
+                Promise.all(
+                    [
+                        sdk.setColorProfile({
+                            type: params.get('colorProfile') || 'rosegold',
+                        }),
+                        sdk.loadRing({
+                            ...loadRingParams
+                        })
+                    ]
+                ).then(() => {
+
+                }).then(() => {
+                    setTimeout(() => {
+                        window.top.postMessage({
+                            action: 'doneLoadingRing',
+                            signature: params.get('signature')
+                        }, '*')
+                    }, 0)
+                })
+
+
+                sdk.setViewMode({
+                    mode: params.get('view') || 'normal'
+                })
+                sdk.setEngraving({
+                    text1: params.get('text1') || ' ',
+                    text2: params.get('text2') || 'Mary',
+                    text3: params.get('text3') || '2023',
+                    logo: params.get('logo') || 'l3',
+                    font: params.get('font') || 'f2',
+                })
+
+                sdk.setRatioDPR(params.get('dpr'))
+
+                let initSet = {
+                    //
+
+                    //
+                    px: params.get('px'),
+                    py: params.get('py'),
+                    pz: params.get('pz'),
+
+                    tx: params.get('tx'),
+                    ty: params.get('ty'),
+                    tz: params.get('tz'),
+                }
+
+                if (params.has('scaleAll')) {
+                    initSet['scaleAll'] = Number(params.get('scaleAll'))
+                }
+                if (params.has('confgEnablePan') && params.get('confgEnablePan') !== 'undefined') {
+                    initSet['confgEnablePan'] = params.get('confgEnablePan')
+                }
+                if (params.has('minDistance')) {
+                    initSet['minDistance'] = Number(params.get('minDistance'))
+                }
+                if (params.has('maxDistance')) {
+                    initSet['maxDistance'] = Number(params.get('maxDistance'))
+                }
+                if (params.has('dampingFactor')) {
+                    initSet['dampingFactor'] = Number(params.get('dampingFactor'))
+                }
+                if (params.has('needsResetDampingDelta')) {
+                    initSet['needsResetDampingDelta'] = Number(params.get('needsResetDampingDelta'))
+                }
+
+                sdk.setRotation(initSet)
+
+
+                setInterval(() => {
+                    let result = localStorage.getItem('focus-text')
+                    if (result) {
+                        localStorage.removeItem('focus-text')
+                        sdk.showEngraveAngle()
+                    }
+                }, 1);
+
+                setInterval(() => {
+                    let result = localStorage.getItem('reset-focus')
+                    if (result) {
+                        localStorage.removeItem('reset-focus')
+                        sdk.showDefaultAngle({ instant: false })
+                    }
+                }, 1);
+
+
+                setInterval(() => {
+                    let result = localStorage.getItem('reset-focus-instant')
+                    if (result) {
+                        localStorage.removeItem('reset-focus-instant')
+                        sdk.showDefaultAngle({ instant: true })
+                    }
+                }, 1);
+
+                // setTimeout(() => {
+                //     sdk.setColorProfile({
+                //         type: 'gold',
+                //     })
+                // }, 2000)
+
+                // setTimeout(() => {
+                //     sdk.setColorProfile({
+                //         type: 'platinum',
+                //     })
+                // }, 3000)
+
+                // --------
+                //  Button
+                // --------
+
+                window.addEventListener('change-color', (e) => {
+                    // sdk.setColorProfile({
+                    //     type: e.detail,
+                    // })
+                })
+
+                window.addEventListener('change-dpr', (e) => {
+                    sdk.setRatioDPR(e.detail)
+                })
+
+                setInterval(() => {
+                    let result = localStorage.getItem('toggleRotate')
+                    sdk.setRotateAuto({ value: !!result })
+                })
+
+
+                setInterval(() => {
+                    sdk.getRotation().then((v) => {
+                        // console.log(v)
+                        //
+                        if (v) {
+                            window.top.postMessage({
+                                action: 'getRotation',
+                                data: v,
+                                signature: params.get('signature')
+                            }, '*')
+
+                            // sessionStorage.setItem('cam-info', JSON.stringify(v))
+                        }
+                    })
+                })
+
+                let isLoading = false
+                let delayChoice = false
+                let delayTimer = -1
+                window.addEventListener('change-diamond-size', (e) => {
+                    delayChoice = e
+                    if (isLoading) {
+                        clearInterval(delayTimer)
+                        delayTimer = setTimeout(() => {
+                            if (delayChoice) {
+                                sdk.loadRing({
+                                    ...delayChoice.detail
+                                })
+                            }
+                        }, 1000)
+                        return
+                    }
+                    isLoading = true
+
+                    let prom = sdk.loadRing({
+                        ...e.detail
+                        // seriesID: e.detail.seriesID,
+                        // fingerSize: e.detail.fingerSize,
+                        // diamondSize: e.detail.diamondSize,
+                    })
+
+                    if (prom && prom.then) {
+                        prom.then(() => {
+                            setTimeout(() => {
+                                isLoading = false
+                            }, 500);
+                        }).catch(r => {
+                            setTimeout(() => {
+                                isLoading = false
+                            }, 500);
+                        })
+                    } else {
+                        setTimeout(() => {
+                            isLoading = false
+                        }, 1000);
+                    }
+                })
+
+                window.addEventListener('change-viewMode', (e) => {
+                    if (e.detail === 'engrave') {
+                        window.document.body.classList.add(['engrave'])
+                        sdk.setViewMode({ mode: e.detail })
+                    } else {
+                        window.document.body.classList.remove(['engrave'])
+                        sdk.setViewMode({ mode: e.detail })
+                    }
+                })
+
+                window.addEventListener('change-text', (e) => {
+                    sdk.setEngraving({
+                        text1: e.detail.text1,
+                        text2: e.detail.text2,
+                        text3: e.detail.text3,
+                        logo: e.detail.logo,
+                        font: e.detail.font,
+                    })
+                })
+            })
+        } else {
+            location.assign('/')
+        }
+
+    </script>
+
+</body>
+
+</html>

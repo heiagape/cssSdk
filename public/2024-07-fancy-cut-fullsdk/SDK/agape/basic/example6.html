@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+</head>
+<body>
+<div style="height: 60px;"></div>
+
+
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 1}))">100% resolution</button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.8}))">80% resolution</button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.7}))">70% resolution</button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.6}))">60% resolution</button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.5}))">50% resolution</button>
+    <!-- <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.4}))">40% resolution</button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.3}))">30% resolution</button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.2}))">20% resolution</button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.1}))">10% resolution</button> -->
+</div>
+<button onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'rosegold'}))">Rose Gold</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'gold'}))">Gold</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'platinum'}))">Platinum</button>
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.35}}))">94010R 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.55}}))">94010R 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 0.75}}))">94010R 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 1.0 }}))">94010R 1.00 ct </button>
+</div>
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.35}}))">94007R 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.55}}))">94007R 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.75}}))">94007R 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 1.0 }}))">94007R 1.00 ct </button>
+</div>
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.35}}))">94007E 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.55}}))">94007E 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 0.75}}))">94007E 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007E', fingerSize: 0, diamondSize: 1.0 }}))">94007E 1.00 ct </button>
+</div>
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.35}}))">94007N 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.55}}))">94007N 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 0.75}}))">94007N 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007N', fingerSize: 0, diamondSize: 1.0 }}))">94007N 1.00 ct </button>
+</div>
+
+<!-- <div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.35}}))">94007R 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.55}}))">94007R 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.75}}))">94007R 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 1.0 }}))">94007R 1.00 ct </button>
+</div> -->
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.35}}))">94010E 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.55}}))">94010E 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 0.75}}))">94010E 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010E', fingerSize: 0, diamondSize: 1.0 }}))">94010E 1.00 ct </button>
+</div>
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.35}}))">94010N 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.55}}))">94010N 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 0.75}}))">94010N 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010N', fingerSize: 0, diamondSize: 1.0 }}))">94010N 1.00 ct </button>
+</div>
+
+<div>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.35}}))">94106R 0.35 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.55}}))">94106R 0.55 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 0.75}}))">94106R 0.75 ct </button>
+    <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94106R', fingerSize: 15, diamondSize: 1.0 }}))">94106R 1.00 ct </button>
+</div>
+
+
+
+
+<!-- <button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.55}))">0.55</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 0.75}))">0.75</button>
+<button onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: 1.0}))">1.0</button> -->
+
+<div id='myroot' style="width: 100%; height: 100%;"></div>
+<style>
+    html,body,#myroot{
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+
+<script type="module">
+    if (localStorage.getItem('ok') === 'ok') {
+
+        let baseURL = `https://agape-css-diamond-sdk.vercel.app`
+        if (location.origin.includes('localhost')) {
+            baseURL = `http://localhost:3001`
+        }
+        let sdkPath = `${baseURL}/sdk-build/vanilla.module.js?r3=${Math.random()}`
+
+        import(sdkPath).then((agape) =>{
+            //////////////
+            // SDK Code //
+            //////////////
+
+            let sdk = new agape.AgapeEngineSDKForCSS({
+                publicAccessToken: `emphasis-2023-11`,
+                domElement: document.querySelector('#myroot'),
+            })
+
+            sdk.loadRing({
+                seriesID: `94010R`,
+                fingerSize: 15,
+                diamondSize: 0.35,
+            })
+
+            sdk.setColorProfile({
+                type: 'rosegold',
+            })
+            
+            // setTimeout(() => {
+            //     sdk.setColorProfile({
+            //         type: 'gold',
+            //     })
+            // }, 2000)
+
+            // setTimeout(() => {
+            //     sdk.setColorProfile({
+            //         type: 'platinum',
+            //     })
+            // }, 3000)
+
+            // --------
+            //  Button
+            // --------
+
+            window.addEventListener('change-color', (e) => {
+                sdk.setColorProfile({
+                    type: e.detail,
+                })
+            })
+
+            window.addEventListener('change-dpr', (e) => {
+                sdk.setRatioDPR(e.detail)
+            })
+
+            window.addEventListener('change-diamond-size', (e) => {
+                sdk.loadRing({
+                    ...e.detail
+                    // seriesID: e.detail.seriesID,
+                    // fingerSize: e.detail.fingerSize,
+                    // diamondSize: e.detail.diamondSize,
+                })
+
+            })
+        })
+    } else {
+        location.assign('/')
+    }
+   
+
+
+</script>
+
+</body>
+</html>
