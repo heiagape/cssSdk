@@ -84,6 +84,7 @@
                     "> Switch Engrave Mode / View Mode</button> -->
             </div>
             <div class="only-show-when-engrave">
+                \
                 <!-- <div>
                     <button class="button-general" onclick="
                     window.dispatchEvent(new CustomEvent('change-camera', {detail: 'engrave'})); 
@@ -1430,9 +1431,9 @@
             })
 
             window.addEventListener('change-diamond-size', (e) => {
-                // console.log(e.detail)
+                console.log(e.detail)
 
-                let hasEngrave = e.detail.seriesID === '94010R' || e.detail.seriesID === '94007R' || e.detail.seriesID === '94106R'
+                let hasEngrave = e.detail.seriesID === '94010R' || e.detail.seriesID === '94007R' || e.detail.seriesID === '94106R'||e.detail.seriesID === '94008R'
 
                 if (hasEngrave) {
                     if (!window.document.body.classList.contains('engrave')) {
