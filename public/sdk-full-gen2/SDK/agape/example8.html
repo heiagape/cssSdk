@@ -99,32 +99,9 @@
             <div class="separater"></div>
 
             <div>
-                <!-- <button class="button-general" onclick="
-                    // window.dispatchEvent(new CustomEvent('change-viewMode', {detail: 'engrave'})); 
-                    window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94010R', fingerSize: 15, diamondSize: 1.0 }}))
-                ">Engrave Mode</button>
-                <button class="button-general"
-                    onclick="
-                    window.dispatchEvent(new CustomEvent('change-viewMode', {detail: 'normal'}))
-                    ">View
-                    Mode</button> -->
-
-                <!-- <button class="button-general" onclick="
-                        window.dispatchEvent(new CustomEvent('toggle-viewMode', {detail: ''}))
-                    "> Switch Engrave Mode / View Mode</button> -->
             </div>
             <div class="only-show-when-engrave">
-                
-                <!-- <div>
-                    <button class="button-general" onclick="
-                    window.dispatchEvent(new CustomEvent('change-camera', {detail: 'engrave'})); 
-                ">Zoom In (See Text)</button>
-                    <button class="button-general"
-                        onclick="
-                        window.dispatchEvent(new CustomEvent('change-camera', {detail: 'normal'}))
-                        ">
-                        Zoom Out (See all)</button>
-                </div> -->
+
                 <div>
                     <input style="display: none;" maxLength="5" id="text1" type="text" onfocus="
                     window.dispatchEvent(new CustomEvent('focus-text', {detail: {
@@ -247,22 +224,6 @@
             </div>
 
             <div>
-                <!-- <button class="button-general"
-                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 1}))">100% resolution</button>
-                <button class="button-general"
-                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.9}))">90% resolution</button>
-                <button class="button-general"
-                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.8}))">80% resolution</button>
-                <button class="button-general"
-                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.7}))">70% resolution</button>
-                <button class="button-general"
-                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.6}))">60% resolution</button>
-                <button class="button-general"
-                    onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.5}))">50% resolution</button> -->
-                <!-- <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.4}))">40% resolution</button>
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.3}))">30% resolution</button>
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.2}))">20% resolution</button>
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-dpr', {detail: 0.1}))">10% resolution</button> -->
             </div>
 
             <div class="separater"></div>
@@ -376,12 +337,6 @@
             </div>
             <div class="separater"></div>
 
-            <!-- <div class="section hideforsure hide-when-engrave">
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.35}}))">94007R 0.35 ct </button>
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.55}}))">94007R 0.55 ct </button>
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 0.75}}))">94007R 0.75 ct </button>
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('change-diamond-size', {detail: {seriesID: '94007R', fingerSize: 15, diamondSize: 1.0 }}))">94007R 1.00 ct </button>
-        </div> -->
 
             <div class="section hideforsure hide-when-engrave">
 
@@ -787,36 +742,6 @@
                 params.set('dpr', 1.0)
                 params.set('baseURL', `${baseURL}`)
 
-                /*
-                params.set('px', 0.0)
-                params.set('py', 26 * 1.3)
-                params.set('pz', 38 * 1.3)
-                
-                params.set('tx', 0.0)
-                params.set('ty', Math.PI * 0.25)
-                params.set('tz', 0.0)
-                */
-                ///
-
-                // params.set('px', 0.0)
-                // params.set('py', 26 * 1.3)
-                // params.set('pz', 0)
-
-                // params.set('tx', 0.0)
-                // params.set('ty', Math.PI * 0.5)
-                // params.set('tz', 0.0)
-
-                /////////
-
-                // params.set('px', 0.0)
-                // params.set('py', 26 * 1.7)
-                // params.set('pz', 38 * 1.7)
-
-                // params.set('tx', 0.0)
-                // params.set('ty', Math.PI * 0.25)
-                // params.set('tz', 0.0)
-
-                /////////
 
                 params.set('px', 0.0)
                 params.set('py', 26 * 1.7 * 1.9)
@@ -835,7 +760,7 @@
 
                 params.set('text1', document.body.querySelector('#text1').value)
 
-                console.log(params.toString())
+                //console.log(params.toString())
 
                 this.params = params
 
@@ -856,7 +781,7 @@
                         }).then((result) => {
                             //
 
-                            console.log(result.list)
+                            //console.log(result.list)
 
                             let list = result.list
 
@@ -873,6 +798,11 @@
                                 if (filterURL.length === 0) {
                                     return true
                                 } else {
+                                    if (filterURL.includes('solitair')){
+                                        if (item.group.toLowerCase() === 'solitair') {
+                                            return true
+                                        }
+                                    }
                                     if (filterURL.includes('fancycut')) {
                                         if (item.group.toLowerCase() === 'marquise') {
                                             return true
@@ -890,6 +820,7 @@
                                         return true
                                     }
                                     return false
+
                                 }
                             }).forEach((it) => {
                                 if (!groups.some(r => r.seriesID === it.seriesID)) {
@@ -915,7 +846,7 @@
                                 `
                                 })
 
-                                console.log(line2)
+                               // console.log(line2)
 
                                 if (accordionList) {
                                     $(/* html */`
@@ -1004,19 +935,17 @@
                         font: e.detail.font,
                     }
 
-                    // let displayText = document.querySelector('#display-text')
 
-                    // if (item.font === 'f1') {
-                    //     displayText.style.fontFamily = 'Arial'
-                    // }
 
                     for (let kn in item) {
                         params.set(`${kn}`, item[kn])
                     }
 
-                    console.log(params.toString())
+                    //console.log(params.toString())
+                    
 
                     this.iframes.forEach((it, idx) => {
+                        console.log(it)
                         it.domElement.contentWindow.postMessage({
                             action: 'change-text',
                             data: {
@@ -1154,7 +1083,7 @@
                 window.addEventListener('message', (ev) => {
                     if (ev.origin === location.origin && ev.data?.signature && ev.data?.action === 'doneLoadingRing') {
                         this.signaturesReply[ev.data?.signature] = ev.data
-                        console.log('parent got message', ev.data)
+                       // console.log('parent got message', ev.data)
                         window.dispatchEvent(new CustomEvent('done-loading', { detail: {} }))
                     }
                     if (ev.origin === location.origin && ev.data?.action === 'getRotation' && ev?.data?.signature === params.get('signature')) {
@@ -1240,17 +1169,7 @@
                 })
 
 
-                // window.addEventListener('load', () => {
-                //     let defaultAngle = {
-                //         "tx": 0,
-                //         "ty": 0.7853981633974483,
-                //         "tz": 0,
-                //         "px": 0,
-                //         "py": 50.3107700687006,
-                //         "pz": 73.53112548502395
-                //     }
-                //     sessionStorage.setItem('cam-info', JSON.stringify(defaultAngle))
-                // })
+
             }
         }
 
@@ -1265,8 +1184,7 @@
                 this.domElement.style.border = `0`
                 this.domElement.style.transition = `opacity 0.3s ease-in-out`
                 this.domElement.style.zIndex = idx
-                // this.domElement.style.backgroundImage = `url('/img/bg/bg.jpeg')`
-                // this.domElement.style.backgroundSize = 'cover'
+
 
                 this.parent = parent
 
@@ -1274,25 +1192,6 @@
                 this.parent.domElement.append(this.domElement)
 
 
-                // this.callAction = (type, data) => {
-                //   let signature = `${(Math.random() * 1000000).toFixed(0)}`
-                //   return new Promise((resolve, reject) =>{
-                //     let tt = setInterval(() =>{
-                //       if (this.signaturesReply[signature]) {
-                //         clearInterval(tt)
-                //         let data = this.signaturesReply[signature]
-                //         resolve(data)
-                //         delete this.signaturesReply[signature]
-                //       }                    
-                //     })
-
-                //     this.domElement.contentWindow.postMessage({
-                //       action: type,
-                //       data: data,
-                //       signature: signature
-                //     });
-                //   })
-                // }
             }
             layer({ idx, visble }) {
                 this.visble = visble
@@ -1308,23 +1207,7 @@
 
             }
         }
-        //
-        //
 
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
 
         if (localStorage.getItem('ok') === 'ok' || true) {
             // let baseURL = `https://diamond-sdk-git-2024-july-fancycut-agape.vercel.app`
@@ -1525,35 +1408,7 @@
             }
 
 
-            // window.addEventListener('render-engrave', () => {
-            //     let displayText = document.querySelector('#display-text')
-            //     displayText.innerHTML = ''
-            //     setDOM({ fullString: document.querySelector('#text1').value, mainHTML: displayText })
-            // })
 
-            // document.querySelector('#display-text').addEventListener('keydown', (e) => {
-            //     let text1 = document.querySelector('#text1')
-            //     let display = document.querySelector('#display-text')
-
-            //     if (e.key === 'Backspace') {
-            //         return
-            //     }
-
-            //     if (e.key === 'ArrowLeft') {
-            //         return
-            //     }
-            //     if (e.key === 'ArrowRight') {
-            //         return
-            //     }
-
-            //     if (e.key.length === 1) {
-            //         return
-            //     }
-
-            //     e.preventDefault()
-            //     e.stopPropagation()
-            //     e.stopImmediatePropagation()
-            // })
             document.querySelector('#display-text').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault()
@@ -1641,34 +1496,6 @@
                     }
                 }))
 
-                // let oldText = await getDOM()
-                // await setDOM({ fullString: oldText + thisSymbol, mainHTML: display })
-
-                // text1.value = await getDOM()
-                // display.focus()
-
-
-                // let char = thisSymbol
-                // let html = ''
-                // if (char === '&') {
-                //     html += `<span class="inline-img">&</span>`
-                // } else if (char === '♥') {
-                //     html += `<span class="inline-img"><image src="./basic/engrave/promessa/heart_fill.png"></span>`
-                // } else if (char === '♡') {
-                //     html += `<span class="inline-img"><image src="./basic/engrave/promessa/heart_hollow.png"></span>`
-                // } else if (char === '◛') {
-                //     html += `<span class="inline-img"><image src="./basic/engrave/promessa/promessa_heart_border.png"></span>`
-                // } else if (char === '◚') {
-                //     html += `<span  class="inline-img"><image src="./basic/engrave/promessa/promessa_heart.png"></span>`
-                // } else {
-                //     html += `<span class="inline-img"><span>${char}</span></span>`
-                // }
-
-                // let item = document.createElement('span')
-                // item.setAttribute('symbol', char)
-                // item.innerHTML = html
-
-                // displayText.append(item)
             })
 
             window.addEventListener('change-color', (e) => {
@@ -1698,9 +1525,6 @@
 
                 sdk.loadRing({
                     ...e.detail
-                    // seriesID: e.detail.seriesID,
-                    // fingerSize: e.detail.fingerSize,
-                    // diamondSize: e.detail.diamondSize,
                 })
             })
 
@@ -1716,40 +1540,30 @@
 
             window.addEventListener('focus-text', (e) => {
                 localStorage.setItem('focus-text', true)
-                // console.log('write', 'focus-text')
+    
                 localStorage.removeItem('toggleRotate')
             })
 
 
             window.addEventListener('reset-focus', (e) => {
                 localStorage.setItem('reset-focus', true)
-                // console.log('write', 'focus-text')
+              
                 localStorage.removeItem('toggleRotate')
             })
 
             window.addEventListener('reset-focus-instant', (e) => {
                 localStorage.setItem('reset-focus-instant', true)
-                // console.log('write', 'focus-text')
+  
                 localStorage.removeItem('toggleRotate')
             })
 
-            // window.addEventListener('toggle-viewMode', (e) => {
-            //     if (window.document.body.classList.contains('engrave')) {
-
-            //         // sdk.setViewMode({ mode: 'normal' })
-            //     } else {
-            //         window.document.body.classList.add(['engrave'])
-            //         // window.dispatchEvent(new CustomEvent('change-diamond-size', { detail: { seriesID: '94010R', fingerSize: 15, diamondSize: 1.0 } }))
-            //         // sdk.setViewMode({ mode: 'normal' })
-            //     }
-            // })
 
             window.addEventListener('change-camera', (e) => {
                 if (e.detail === 'engrave') {
-                    // window.document.body.classList.add(['engrave'])
+                 
                     sdk.setViewMode({ mode: e.detail })
                 } else {
-                    // window.document.body.classList.remove(['engrave'])
+                   
                     sdk.setViewMode({ mode: e.detail })
                 }
             })
@@ -1770,20 +1584,6 @@
         }
 
 
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
-        //--------------------------------
 
     </script>
 
