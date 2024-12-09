@@ -100,7 +100,7 @@
 
             <div>
             </div>
-            <div class="only-show-when-engrave">
+            <div class="only-show-when-engrave" id='engrave'>
 
                 <div>
                     <input style="display: none;" maxLength="5" id="text1" type="text" onfocus="
@@ -672,8 +672,8 @@
                 initCamInfo = {
                     "scaleAll": 1,
                     "px": "0",
-                    "py": "50.3107700687006",
-                    "pz": "73.53112548502395",
+                    "py": "500.3107700687006",
+                    "pz": "703.53112548502395",
                     "tx": "0.3515996811102802",
                     "ty": "0.7231871358273436",
                     "tz": "0"
@@ -744,7 +744,7 @@
 
 
                 params.set('px', 0.0)
-                params.set('py', 26 * 1.7 * 1.9)
+                params.set('py', 26 * 1.7 * 1.9*2.0)
                 params.set('pz', 38 * 1.7 * 1.9)
 
                 params.set('tx', 0.0)
@@ -799,6 +799,8 @@
                                     return true
                                 } else {
                                     if (filterURL.includes('solitair')){
+                                        const engravingSlot= document.getElementById("engrave")
+                                        engravingSlot.style.display="none"
                                         if (item.group.toLowerCase() === 'solitair') {
                                             return true
                                         }
