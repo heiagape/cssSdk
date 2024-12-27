@@ -231,7 +231,7 @@
                 <button class="button-general"
                     onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'rosegold'}))">18K Rose
                     Gold</button>
-                <button class="button-general"
+                <button class="button-general" id="yellow"
                     onclick="window.dispatchEvent(new CustomEvent('change-color', {detail: 'gold'}))">18K Yellow
                     Gold</button>
                 <button class="button-general"
@@ -803,7 +803,9 @@
                                 } else {
                                     if (filterURL.includes('solitair')){
                                         const engravingSlot= document.getElementById("engrave")
+                                        const yellowbutton= document.getElementById('yellow')
                                         engravingSlot.style.display="none"
+                                        yellowbutton.style.display='none'
                                         if (item.group.toLowerCase() === 'solitair') {
                                             return true
                                         }
