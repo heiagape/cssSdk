@@ -44,7 +44,7 @@
     <div class="layoutgui">
         <div class="layoutgui-left">
 
-            <button class="button-general" onclick="window.dispatchEvent(new CustomEvent('setCameraPositionAndTwist', {detail: {
+            <button class="button-general" id="cambuttom" onclick="window.dispatchEvent(new CustomEvent('setCameraPositionAndTwist', {detail: {
                     // camera position
                     px: 0,
                     py: 50.3107700687006,
@@ -804,8 +804,10 @@
                                     if (filterURL.includes('solitair')){
                                         const engravingSlot= document.getElementById("engrave")
                                         const yellowbutton= document.getElementById('yellow')
+                                        const camerabutton = document.getElementById('cambuttom')
                                         engravingSlot.style.display="none"
                                         yellowbutton.style.display='none'
+                                        camerabutton.style.display='none'
                                         if (item.group.toLowerCase() === 'solitair') {
                                             return true
                                         }
